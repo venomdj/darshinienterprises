@@ -44,62 +44,7 @@
     --glass: rgba(30, 12, 18, 0.75);
   }
 
-  /* ── THEME TOGGLE BUTTON ── */
-  .theme-toggle {
-    position: fixed;
-    bottom: 2rem;
-    left: 2rem;
-    z-index: 200;
-    width: 52px;
-    height: 28px;
-    background: var(--blush);
-    border: 1.5px solid var(--rose);
-    border-radius: 100px;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    display: flex;
-    align-items: center;
-    padding: 0 4px;
-    box-shadow: 0 4px 20px var(--shadow);
-  }
-  .theme-toggle:hover {
-    box-shadow: 0 6px 25px rgba(181, 83, 107, 0.25);
-    transform: translateY(-2px);
-  }
-  .theme-toggle-knob {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--deep-rose);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    line-height: 1;
-    color: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  }
-  [data-theme="dark"] .theme-toggle-knob {
-    transform: translateX(24px);
-  }
-  .theme-toggle-label {
-    position: absolute;
-    left: 62px;
-    white-space: nowrap;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    pointer-events: none;
-    transition: opacity 0.3s;
-    opacity: 0;
-  }
-  .theme-toggle:hover .theme-toggle-label {
-    opacity: 1;
-  }
+  /* theme toggle moved to nav */
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -1011,6 +956,625 @@
   [data-theme="dark"] .cart-toast { background: #2a1520; border: 1px solid rgba(138,69,96,0.4); }
   [data-theme="dark"] #loader { background: var(--cream); }
   [data-theme="dark"] #newsletter { background: linear-gradient(135deg, #8a1f3a 0%, #a0456a 50%, #c97a90 100%); }
+
+  /* ── NAV DARK MODE TOGGLE (top right) ── */
+  .nav-dark-toggle {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: none; border: none; cursor: pointer; padding: 0;
+  }
+  .nav-dark-track {
+    width: 48px; height: 26px;
+    background: var(--blush);
+    border: 1.5px solid var(--rose);
+    border-radius: 100px;
+    display: flex; align-items: center;
+    padding: 0 3px;
+    transition: all 0.4s ease;
+    box-shadow: 0 2px 10px var(--shadow);
+    position: relative;
+  }
+  .nav-dark-track:hover {
+    box-shadow: 0 4px 18px rgba(181,83,107,0.25);
+  }
+  .nav-dark-knob {
+    width: 19px; height: 19px;
+    border-radius: 50%;
+    background: var(--deep-rose);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; line-height: 1;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: absolute; left: 3px;
+  }
+  [data-theme="dark"] .nav-dark-knob {
+    transform: translateX(22px);
+  }
+  .nav-dark-label {
+    font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); font-family: 'DM Sans', sans-serif; font-weight: 500;
+    user-select: none;
+  }
+  @media(max-width:640px) { .nav-dark-label { display: none; } }
+
+  /* ══════════════════════════════════════
+     COMMUNITY — Reddit/Twitter Style
+  ══════════════════════════════════════ */
+  .comm-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media(max-width:900px) { .comm-layout { grid-template-columns: 1fr; } .comm-sidebar { order: -1; } }
+
+  .comm-top-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem;
+  }
+  .comm-sort-row { display: flex; gap: 0.5rem; }
+  .sort-btn {
+    background: none; border: 1.5px solid rgba(233,165,181,0.3);
+    border-radius: 100px; padding: 0.45rem 1rem;
+    font-size: 0.78rem; font-family: 'DM Sans', sans-serif;
+    color: var(--muted); cursor: pointer; transition: all 0.3s;
+    font-weight: 500; letter-spacing: 0.04em;
+  }
+  .sort-btn.active, .sort-btn:hover { border-color: var(--deep-rose); color: var(--deep-rose); background: var(--petal); }
+  .comm-compose-btn {
+    background: var(--deep-rose); color: white;
+    border: none; border-radius: 100px; padding: 0.5rem 1.3rem;
+    font-size: 0.78rem; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: all 0.3s; font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .comm-compose-btn:hover { background: var(--mauve); transform: translateY(-1px); }
+
+  .comm-tags-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.4rem; }
+  .comm-tag {
+    padding: 0.3rem 0.9rem; border-radius: 100px;
+    border: 1px solid rgba(233,165,181,0.3);
+    background: none; font-size: 0.75rem; color: var(--muted);
+    cursor: pointer; transition: all 0.25s; font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+  }
+  .comm-tag.active { background: var(--deep-rose); border-color: var(--deep-rose); color: white; }
+  .comm-tag:hover:not(.active) { border-color: var(--rose); color: var(--deep-rose); }
+
+  /* Composer */
+  .post-composer {
+    background: var(--glass); border: 1.5px solid rgba(233,165,181,0.3);
+    border-radius: 20px; padding: 1.4rem; margin-bottom: 1.2rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+    backdrop-filter: blur(10px);
+  }
+  .composer-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--blush); display: flex; align-items: center;
+    justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+    border: 2px solid var(--rose);
+  }
+  .composer-body { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
+  .composer-footer { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+
+  /* Post Cards — Reddit style */
+  .post-card {
+    background: var(--glass); border: 1px solid rgba(233,165,181,0.2);
+    border-radius: 18px; padding: 1rem 1.2rem;
+    display: flex; gap: 0.8rem; margin-bottom: 1rem;
+    transition: all 0.3s ease; backdrop-filter: blur(8px);
+    position: relative;
+  }
+  .post-card:hover { border-color: rgba(233,165,181,0.5); box-shadow: 0 8px 30px var(--shadow); }
+  [data-theme="dark"] .post-card { border-color: rgba(138,69,96,0.25); }
+  [data-theme="dark"] .post-card:hover { border-color: rgba(138,69,96,0.5); }
+
+  .post-vote-col {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.2rem; flex-shrink: 0; min-width: 36px;
+  }
+  .vote-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 0.9rem; color: var(--muted); transition: all 0.2s;
+    padding: 0.2rem 0.4rem; border-radius: 6px;
+    line-height: 1;
+  }
+  .vote-btn:hover, .vote-btn.active { color: var(--deep-rose); background: var(--petal); }
+  .vote-btn.down:hover, .vote-btn.down.active { color: #6b7280; background: rgba(107,114,128,0.1); }
+  .vote-count { font-size: 0.8rem; font-weight: 600; color: var(--ink); }
+
+  .post-body { flex: 1; min-width: 0; }
+  .post-meta {
+    display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+    margin-bottom: 0.6rem;
+  }
+  .post-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--blush); display: flex; align-items: center;
+    justify-content: center; font-size: 0.85rem;
+    border: 1.5px solid var(--rose);
+  }
+  .post-author { font-size: 0.82rem; font-weight: 600; color: var(--ink); }
+  .post-city, .post-time { font-size: 0.75rem; color: var(--muted); }
+  .post-tag-pill {
+    padding: 0.15rem 0.6rem; border-radius: 100px;
+    background: var(--petal); font-size: 0.68rem; color: var(--mauve);
+    letter-spacing: 0.04em; margin-left: auto;
+    white-space: nowrap;
+  }
+  .post-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; font-style: italic;
+    color: var(--ink); line-height: 1.65; margin-bottom: 0.8rem;
+  }
+  .post-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .post-action-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 0.76rem; color: var(--muted);
+    padding: 0.3rem 0.7rem; border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+    display: flex; align-items: center; gap: 0.3rem;
+  }
+  .post-action-btn:hover { background: var(--petal); color: var(--deep-rose); }
+  .post-action-btn.saved { color: var(--deep-rose); }
+
+  /* Comments */
+  .post-comments { margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid rgba(233,165,181,0.2); }
+  .comment {
+    display: flex; gap: 0.6rem; margin-bottom: 0.6rem;
+    align-items: flex-start;
+  }
+  .comment-avatar {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--blush); display: flex; align-items: center;
+    justify-content: center; font-size: 0.75rem; font-weight: 600;
+    color: var(--mauve); flex-shrink: 0;
+  }
+  .comment-body { display: flex; flex-direction: column; gap: 0.1rem; }
+  .comment-author { font-size: 0.75rem; font-weight: 600; color: var(--ink); }
+  .comment-text { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .comment-input-row { display: flex; gap: 0.5rem; align-items: center; margin-top: 0.6rem; }
+  .comment-input {
+    flex: 1; background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(233,165,181,0.3); border-radius: 100px;
+    padding: 0.4rem 0.9rem; font-size: 0.82rem;
+    font-family: 'DM Sans', sans-serif; color: var(--ink); outline: none;
+    transition: border-color 0.3s;
+  }
+  .comment-input:focus { border-color: var(--rose); }
+  [data-theme="dark"] .comment-input { background: rgba(40,20,28,0.7); }
+  .comment-send {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--deep-rose); border: none; color: white;
+    font-size: 0.9rem; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; transition: all 0.2s;
+  }
+  .comment-send:hover { background: var(--mauve); transform: scale(1.1); }
+
+  /* Sidebar */
+  .comm-sidebar { display: flex; flex-direction: column; gap: 1.2rem; position: sticky; top: 90px; }
+  .sidebar-card {
+    background: var(--glass); border: 1px solid rgba(233,165,181,0.2);
+    border-radius: 18px; padding: 1.4rem; backdrop-filter: blur(10px);
+  }
+  .sidebar-card-title {
+    font-weight: 600; font-size: 0.85rem; color: var(--ink);
+    margin-bottom: 0.8rem; letter-spacing: 0.02em;
+  }
+  .sidebar-card-text { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+  .sidebar-rules {
+    list-style: none; display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .sidebar-rules li {
+    font-size: 0.82rem; color: var(--muted); padding-left: 1rem;
+    position: relative;
+  }
+  .sidebar-rules li::before {
+    content: '✦'; position: absolute; left: 0;
+    color: var(--rose); font-size: 0.6rem; top: 0.15rem;
+  }
+  .sidebar-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .sidebar-tag-btn {
+    padding: 0.2rem 0.6rem; border-radius: 100px;
+    border: 1px solid rgba(233,165,181,0.3);
+    background: none; font-size: 0.72rem; color: var(--muted);
+    cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  }
+  .sidebar-tag-btn:hover { border-color: var(--rose); color: var(--deep-rose); background: var(--petal); }
+
+  /* ══════════════════════════════════════
+     CART PANEL — Flipkart/Amazon style
+  ══════════════════════════════════════ */
+  .cart-overlay {
+    position: fixed; inset: 0; z-index: 299;
+    background: rgba(61,37,48,0.4); backdrop-filter: blur(4px);
+    opacity: 0; pointer-events: none; transition: opacity 0.4s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+  .cart-panel {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    width: min(440px, 100vw);
+    background: var(--cream);
+    z-index: 300;
+    display: flex; flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: -12px 0 60px rgba(0,0,0,0.15);
+  }
+  .cart-panel.open { transform: translateX(0); }
+  [data-theme="dark"] .cart-panel { background: #1e1015; }
+
+  .cart-panel-header {
+    padding: 1.4rem 1.5rem;
+    border-bottom: 1px solid rgba(233,165,181,0.2);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .cart-panel-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; font-style: italic; color: var(--ink); }
+  .cart-panel-sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+  .cart-close-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--blush); border: none; cursor: pointer;
+    font-size: 0.9rem; color: var(--muted); transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cart-close-btn:hover { background: var(--petal); color: var(--deep-rose); }
+
+  .cart-panel-body { flex: 1; overflow-y: auto; padding: 0.5rem 0; }
+  .cart-items-list { padding: 0.5rem 1.5rem; }
+
+  .cart-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.2rem 0; border-bottom: 1px solid rgba(233,165,181,0.15);
+  }
+  .cart-item:last-child { border-bottom: none; }
+  .cart-item-img {
+    width: 64px; height: 80px; border-radius: 12px;
+    background: var(--petal); display: flex; align-items: center;
+    justify-content: center; font-size: 2rem; flex-shrink: 0;
+    box-shadow: 0 4px 15px var(--shadow);
+  }
+  .cart-item-info { flex: 1; min-width: 0; }
+  .cart-item-name { font-weight: 600; font-size: 0.9rem; color: var(--ink); margin-bottom: 0.25rem; }
+  .cart-item-note { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .cart-item-price { font-size: 1rem; font-weight: 700; color: var(--deep-rose); }
+  .cart-item-controls { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
+  .qty-btn {
+    width: 28px; height: 28px; border-radius: 8px;
+    border: 1.5px solid rgba(233,165,181,0.4);
+    background: none; cursor: pointer; font-size: 1rem; color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; font-weight: 600; line-height: 1;
+  }
+  .qty-btn:hover { border-color: var(--deep-rose); color: var(--deep-rose); background: var(--petal); }
+  .qty-num { font-size: 0.88rem; font-weight: 600; color: var(--ink); min-width: 18px; text-align: center; }
+  .remove-btn {
+    background: none; border: none; cursor: pointer; font-size: 1rem;
+    padding: 0.2rem; transition: transform 0.2s; opacity: 0.6;
+  }
+  .remove-btn:hover { transform: scale(1.2); opacity: 1; }
+
+  .cart-empty {
+    text-align: center; padding: 4rem 2rem; color: var(--muted);
+  }
+  .cart-empty p { font-size: 1rem; font-weight: 500; margin: 0.8rem 0 0.3rem; color: var(--ink); }
+  .cart-empty span { font-size: 0.85rem; }
+
+  .cart-panel-footer {
+    border-top: 1px solid rgba(233,165,181,0.2);
+    padding: 1.2rem 1.5rem; flex-shrink: 0;
+    background: var(--cream);
+  }
+  [data-theme="dark"] .cart-panel-footer { background: #1e1015; }
+
+  .cart-promo-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+  .cart-promo-input {
+    flex: 1; background: rgba(255,255,255,0.7);
+    border: 1.5px solid rgba(233,165,181,0.3); border-radius: 10px;
+    padding: 0.55rem 1rem; font-size: 0.82rem;
+    font-family: 'DM Sans', sans-serif; color: var(--ink); outline: none;
+    transition: border-color 0.3s;
+  }
+  .cart-promo-input:focus { border-color: var(--rose); }
+  [data-theme="dark"] .cart-promo-input { background: rgba(40,20,28,0.8); }
+  .cart-promo-btn {
+    background: var(--blush); border: 1.5px solid var(--rose);
+    border-radius: 10px; padding: 0.55rem 1rem;
+    font-size: 0.8rem; font-family: 'DM Sans', sans-serif;
+    color: var(--deep-rose); cursor: pointer; font-weight: 500;
+    transition: all 0.3s; white-space: nowrap;
+  }
+  .cart-promo-btn:hover { background: var(--petal); }
+
+  .cart-total-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 1rem;
+  }
+  .cart-total-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .cart-savings { font-size: 0.75rem; color: #22c55e; margin-top: 0.2rem; font-weight: 500; }
+  .cart-total-amount { font-size: 1.5rem; font-weight: 700; color: var(--ink); }
+  .cart-checkout-btn {
+    width: 100%; background: var(--deep-rose); color: white;
+    border: none; border-radius: 14px; padding: 1rem;
+    font-size: 0.95rem; font-weight: 600; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; letter-spacing: 0.04em;
+    transition: all 0.3s; margin-bottom: 0.7rem;
+  }
+  .cart-checkout-btn:hover { background: var(--mauve); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(181,83,107,0.3); }
+  .cart-secure-badge { text-align: center; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
+
+  /* ══════════════════════════════════════
+     CHECKOUT MODAL — Multi-step
+  ══════════════════════════════════════ */
+  .checkout-modal {
+    background: var(--cream); border-radius: 24px;
+    width: min(640px, 96vw); max-height: 90vh;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.25);
+    transform: scale(0.92) translateY(20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .modal-overlay.open .checkout-modal { transform: scale(1) translateY(0); }
+  [data-theme="dark"] .checkout-modal { background: #1e1015; }
+
+  .checkout-header {
+    padding: 1.5rem 2rem 1.2rem;
+    border-bottom: 1px solid rgba(233,165,181,0.2);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .checkout-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 500; font-style: italic; color: var(--ink);
+  }
+
+  /* Steps indicator */
+  .co-steps {
+    display: flex; align-items: center;
+    padding: 1.2rem 2rem; border-bottom: 1px solid rgba(233,165,181,0.15);
+    flex-shrink: 0;
+  }
+  .co-step {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; color: var(--muted); font-weight: 500;
+    white-space: nowrap;
+  }
+  .co-step.active { color: var(--deep-rose); }
+  .co-step.done { color: #22c55e; }
+  .co-step-num {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--blush); border: 2px solid rgba(233,165,181,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; color: var(--muted);
+    flex-shrink: 0;
+  }
+  .co-step.active .co-step-num { background: var(--deep-rose); border-color: var(--deep-rose); color: white; }
+  .co-step.done .co-step-num { background: #22c55e; border-color: #22c55e; color: white; }
+  .co-step-line {
+    flex: 1; height: 2px; background: rgba(233,165,181,0.3);
+    margin: 0 0.6rem; border-radius: 2px;
+  }
+  .co-step-line.done { background: #22c55e; }
+
+  .checkout-body { flex: 1; overflow-y: auto; padding: 1.8rem 2rem; }
+  .checkout-footer {
+    padding: 1.2rem 2rem; border-top: 1px solid rgba(233,165,181,0.2);
+    display: flex; gap: 1rem; justify-content: flex-end; flex-shrink: 0;
+  }
+  .co-next-btn {
+    background: var(--deep-rose); color: white;
+    border: none; border-radius: 100px; padding: 0.8rem 2rem;
+    font-size: 0.88rem; font-weight: 600; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: all 0.3s;
+    letter-spacing: 0.04em;
+  }
+  .co-next-btn:hover { background: var(--mauve); transform: translateY(-1px); box-shadow: 0 8px 25px rgba(181,83,107,0.3); }
+  .co-back-btn {
+    background: none; border: 1.5px solid rgba(233,165,181,0.4); color: var(--muted);
+    border-radius: 100px; padding: 0.8rem 1.5rem;
+    font-size: 0.85rem; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.3s;
+  }
+  .co-back-btn:hover { border-color: var(--rose); color: var(--deep-rose); }
+
+  /* Checkout body content styles */
+  .co-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 500; font-style: italic;
+    color: var(--ink); margin-bottom: 1.2rem;
+  }
+  .saved-address {
+    border: 1.5px solid rgba(233,165,181,0.3); border-radius: 16px;
+    padding: 1.2rem; display: flex; gap: 1rem;
+    cursor: pointer; transition: all 0.3s; margin-bottom: 0.8rem;
+    align-items: flex-start;
+  }
+  .saved-address:hover { border-color: var(--rose); background: var(--petal); }
+  .saved-address.selected { border-color: var(--deep-rose); background: rgba(252,232,237,0.4); }
+  .sa-radio {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--rose); display: flex; align-items: center;
+    justify-content: center; font-size: 0.6rem; color: var(--deep-rose);
+    flex-shrink: 0; margin-top: 0.1rem;
+  }
+  .sa-radio.checked { background: var(--deep-rose); border-color: var(--deep-rose); color: white; }
+  .sa-name { font-weight: 600; font-size: 0.9rem; color: var(--ink); margin-bottom: 0.3rem; }
+  .sa-tag {
+    background: var(--petal); color: var(--mauve); font-size: 0.65rem;
+    padding: 0.1rem 0.5rem; border-radius: 100px; margin-left: 0.4rem;
+    font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+    vertical-align: middle;
+  }
+  .sa-addr, .sa-phone { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+  .co-add-addr {
+    background: none; border: 1.5px dashed rgba(233,165,181,0.5);
+    border-radius: 12px; padding: 0.8rem 1.2rem;
+    font-size: 0.82rem; color: var(--deep-rose); cursor: pointer;
+    width: 100%; font-family: 'DM Sans', sans-serif; transition: all 0.3s;
+    margin-bottom: 1rem; text-align: left;
+  }
+  .co-add-addr:hover { border-color: var(--rose); background: var(--petal); }
+  .co-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 0.7rem; }
+  @media(max-width:480px) { .co-form-grid { grid-template-columns: 1fr; } }
+
+  /* Payment */
+  .payment-options { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.4rem; }
+  .pay-option {
+    border: 1.5px solid rgba(233,165,181,0.3); border-radius: 14px;
+    padding: 1rem 1.2rem; display: flex; gap: 1rem; align-items: center;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .pay-option:hover { border-color: var(--rose); background: var(--petal); }
+  .pay-option.selected { border-color: var(--deep-rose); background: rgba(252,232,237,0.5); }
+  .pay-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .pay-name { font-weight: 600; font-size: 0.88rem; color: var(--ink); }
+  .pay-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.1rem; }
+  .pay-check { margin-left: auto; color: var(--deep-rose); font-size: 1rem; }
+  .upi-input-wrap { display: flex; gap: 0.6rem; margin-bottom: 1.2rem; }
+  .btn-verify {
+    background: none; border: 1.5px solid var(--rose);
+    border-radius: 10px; padding: 0.55rem 1rem;
+    font-size: 0.8rem; color: var(--deep-rose); cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.3s;
+    white-space: nowrap;
+  }
+  .btn-verify:hover { background: var(--petal); }
+
+  /* Order Summary inside checkout */
+  .co-order-summary {
+    background: var(--petal); border-radius: 16px; padding: 1.2rem;
+    margin-top: 1.2rem;
+  }
+  [data-theme="dark"] .co-order-summary { background: rgba(61,31,42,0.5); }
+  .co-os-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.8rem; font-weight: 600; }
+  .co-os-row { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .co-os-row.total { font-weight: 700; font-size: 1rem; color: var(--ink); margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid rgba(233,165,181,0.3); }
+
+  /* Review step */
+  .review-block { margin-bottom: 1rem; padding: 1rem 1.2rem; border: 1px solid rgba(233,165,181,0.2); border-radius: 14px; }
+  .review-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.4rem; font-weight: 600; }
+  .review-value { font-size: 0.9rem; color: var(--ink); font-weight: 500; }
+  .estimated-delivery { margin-top: 1rem; padding: 0.8rem 1rem; background: rgba(34,197,94,0.1); border-radius: 12px; font-size: 0.85rem; color: var(--muted); border: 1px solid rgba(34,197,94,0.2); }
+
+  /* Order success */
+  .order-success { text-align: center; padding: 2rem 1rem; }
+  .success-ring {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: rgba(34,197,94,0.1); border: 3px solid #22c55e;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem; font-size: 2rem;
+  }
+  .success-check { color: #22c55e; font-size: 2rem; font-weight: 700; }
+  .order-success h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; font-style: italic; color: var(--ink); margin-bottom: 0.5rem; }
+  .order-success p { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.8rem; }
+  .order-details-pill {
+    display: inline-flex; gap: 0.6rem; align-items: center;
+    background: var(--petal); border-radius: 100px;
+    padding: 0.5rem 1.2rem; font-size: 0.82rem; color: var(--mauve); font-weight: 500;
+    margin-top: 0.3rem;
+  }
+
+  /* ══════════════════════════════════════
+     HEART ANIMATION FIX
+  ══════════════════════════════════════ */
+  .float-heart {
+    position: absolute;
+    pointer-events: none;
+    will-change: transform, opacity;
+    animation: floatHeart linear infinite;
+    opacity: 0;
+  }
+  @keyframes floatHeart {
+    0% { transform: translateY(0) scale(0.8) rotate(-5deg); opacity: 0; }
+    8% { opacity: 0.7; }
+    92% { opacity: 0.4; }
+    100% { transform: translateY(-80vh) scale(1.2) rotate(20deg); opacity: 0; }
+  }
+
+  /* ══════════════════════════════════════
+     IMPROVED MOBILE RESPONSIVENESS
+  ══════════════════════════════════════ */
+  @media(max-width:640px) {
+    .post-card { padding: 0.9rem; gap: 0.6rem; }
+    .post-vote-col { min-width: 28px; }
+    .post-tag-pill { display: none; }
+    .comm-tags-row { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.3rem; }
+    .comm-tag { flex-shrink: 0; }
+    .cart-panel { width: 100vw; }
+    .checkout-body { padding: 1.2rem 1.2rem; }
+    .checkout-header { padding: 1.2rem 1.2rem; }
+    .checkout-footer { padding: 1rem 1.2rem; }
+    .co-steps { padding: 1rem 1.2rem; }
+    .co-step span { display: none; }
+    .co-step-line { margin: 0 0.4rem; }
+    .sidebar-card { padding: 1rem; }
+    .comm-top-bar { flex-direction: column; align-items: stretch; }
+    .comm-compose-btn { text-align: center; padding: 0.6rem; }
+    .comm-sort-row { justify-content: center; }
+  }
+  @media(max-width:480px) {
+    .co-form-grid { grid-template-columns: 1fr; }
+    .payment-options { gap: 0.4rem; }
+  }
+
+
+  /* ── DARK MODE: New Elements ── */
+  [data-theme="dark"] .post-card { background: rgba(30,16,21,0.8); }
+  [data-theme="dark"] .post-composer { background: rgba(30,16,21,0.8); border-color: rgba(138,69,96,0.3); }
+  [data-theme="dark"] .comm-tag { border-color: rgba(138,69,96,0.35); }
+  [data-theme="dark"] .comm-tag.active { border-color: var(--deep-rose); }
+  [data-theme="dark"] .sort-btn { border-color: rgba(138,69,96,0.35); }
+  [data-theme="dark"] .sidebar-card { background: rgba(30,16,21,0.8); border-color: rgba(138,69,96,0.25); }
+  [data-theme="dark"] .cart-overlay { background: rgba(10,4,6,0.65); }
+  [data-theme="dark"] .cart-item { border-bottom-color: rgba(138,69,96,0.2); }
+  [data-theme="dark"] .cart-item-img { background: #3d1f2a; }
+  [data-theme="dark"] .pay-option { border-color: rgba(138,69,96,0.35); }
+  [data-theme="dark"] .pay-option.selected { background: rgba(61,31,42,0.5); }
+  [data-theme="dark"] .pay-option:hover { background: rgba(61,31,42,0.5); }
+  [data-theme="dark"] .saved-address { border-color: rgba(138,69,96,0.35); }
+  [data-theme="dark"] .saved-address:hover, [data-theme="dark"] .saved-address.selected { background: rgba(61,31,42,0.4); }
+  [data-theme="dark"] .review-block { border-color: rgba(138,69,96,0.25); }
+  [data-theme="dark"] .co-order-summary { background: rgba(61,31,42,0.5); }
+  [data-theme="dark"] .post-comments { border-top-color: rgba(138,69,96,0.2); }
+  [data-theme="dark"] .comment-avatar { background: #3d1f2a; }
+  [data-theme="dark"] .qty-btn { border-color: rgba(138,69,96,0.4); }
+  [data-theme="dark"] .cart-promo-btn { background: rgba(61,31,42,0.5); }
+  [data-theme="dark"] .co-add-addr { border-color: rgba(138,69,96,0.4); }
+  [data-theme="dark"] .co-back-btn { border-color: rgba(138,69,96,0.35); }
+  [data-theme="dark"] .sidebar-tag-btn { border-color: rgba(138,69,96,0.35); }
+  [data-theme="dark"] .upi-input-wrap .btn-verify { border-color: rgba(138,69,96,0.4); }
+
+
+  /* ── DARK MODE: New Community, Cart, Checkout Elements ── */
+  [data-theme="dark"] .post-card { background: rgba(30,16,21,0.8); }
+  [data-theme="dark"] .post-composer { background: rgba(30,16,21,0.8); border-color: rgba(138,69,96,0.3); }
+  [data-theme="dark"] .comm-tag { border-color: rgba(138,69,96,0.35); }
+  [data-theme="dark"] .comm-tag.active { border-color: var(--deep-rose); }
+  [data-theme="dark"] .sort-btn { border-color: rgba(138,69,96,0.35); }
+  [data-theme="dark"] .sidebar-card { background: rgba(30,16,21,0.8); border-color: rgba(138,69,96,0.25); }
+  [data-theme="dark"] .cart-overlay { background: rgba(10,4,6,0.65); }
+  [data-theme="dark"] .cart-item { border-bottom-color: rgba(138,69,96,0.2); }
+  [data-theme="dark"] .cart-item-img { background: #3d1f2a; }
+  [data-theme="dark"] .pay-option { border-color: rgba(138,69,96,0.35); }
+  [data-theme="dark"] .pay-option.selected { background: rgba(61,31,42,0.5); }
+  [data-theme="dark"] .pay-option:hover { background: rgba(61,31,42,0.5); }
+  [data-theme="dark"] .saved-address { border-color: rgba(138,69,96,0.35); }
+  [data-theme="dark"] .saved-address:hover { background: rgba(61,31,42,0.4); }
+  [data-theme="dark"] .review-block { border-color: rgba(138,69,96,0.25); }
+  [data-theme="dark"] .co-order-summary { background: rgba(61,31,42,0.5); }
+  [data-theme="dark"] .post-comments { border-top-color: rgba(138,69,96,0.2); }
+  [data-theme="dark"] .comment-avatar { background: #3d1f2a; }
+  [data-theme="dark"] .qty-btn { border-color: rgba(138,69,96,0.4); }
+  [data-theme="dark"] .cart-promo-btn { background: rgba(61,31,42,0.5); }
+  [data-theme="dark"] .co-add-addr { border-color: rgba(138,69,96,0.4); }
+  [data-theme="dark"] .co-back-btn { border-color: rgba(138,69,96,0.35); }
+  [data-theme="dark"] .sidebar-tag-btn { border-color: rgba(138,69,96,0.35); }
+  [data-theme="dark"] .comment-input { background: rgba(40,20,28,0.7); }
+  [data-theme="dark"] .cart-promo-input { background: rgba(40,20,28,0.8); }
+  [data-theme="dark"] #community { background: var(--warm-white); }
+
 </style>
 </head>
 <body>
@@ -1037,8 +1601,9 @@
     <li><a href="#store" class="nav-cta">Pre-Order</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:1rem">
-    <button onclick="toggleTheme()" style="background:none;border:1.5px solid var(--rose);border-radius:100px;padding:0.4rem 0.9rem;cursor:pointer;font-size:0.75rem;color:var(--muted);font-family:'DM Sans',sans-serif;letter-spacing:0.06em;display:flex;align-items:center;gap:0.4rem;transition:all 0.3s" id="navThemeBtn" title="Toggle theme">
-      <span id="navThemeIcon">☀️</span>
+    <button class="nav-dark-toggle" onclick="toggleTheme()" id="navThemeBtn" title="Toggle dark mode" aria-label="Toggle dark mode">
+      <span class="nav-dark-track"><span class="nav-dark-knob" id="navThemeIcon">☀️</span></span>
+      <span class="nav-dark-label" id="navDarkLabel">Light</span>
     </button>
     <div class="hamburger" onclick="toggleMobileNav()">
       <span></span><span></span><span></span>
@@ -1193,87 +1758,72 @@
       <span class="section-label">✦ Community</span>
       <div class="divider"></div>
       <h2 class="section-title">Your Stories<br>Belong Here Too</h2>
-      <p class="section-sub">Love isn't just ours to tell. Share your own memories, confessions, date ideas, or quiet moments that made everything better.</p>
+      <p class="section-sub">Love isn't just ours to tell. Share memories, confessions, date ideas, and quiet moments that made everything better.</p>
     </div>
-    <div class="community-grid">
-      <div class="story-card reveal" style="transition-delay:0.05s">
-        <div class="story-tag">💌 Confession</div>
-        <p class="story-text">I fell in love with him when he drove 2 hours in the rain just to bring me soup when I was sick. He didn't tell me he was coming. He just showed up.</p>
-        <div class="story-author">
-          <div class="story-avatar">🌸</div>
-          <span>Anonymous, Mumbai</span>
+    <!-- Community Layout -->
+    <div class="comm-layout">
+      <!-- Left Feed -->
+      <div class="comm-main">
+        <!-- Sort + Tags Bar -->
+        <div class="comm-top-bar reveal">
+          <div class="comm-sort-row">
+            <button class="sort-btn active" data-sort="hot" onclick="setSort('hot')">🔥 Hot</button>
+            <button class="sort-btn" data-sort="new" onclick="setSort('new')">✨ New</button>
+            <button class="sort-btn" data-sort="top" onclick="setSort('top')">⬆️ Top</button>
+          </div>
+          <button class="comm-compose-btn" onclick="toggleComposer()">✍️ Share Your Story</button>
         </div>
-        <div class="story-likes" onclick="likeStory(this)">♥ <span>247</span></div>
-      </div>
-      <div class="story-card reveal" style="transition-delay:0.1s">
-        <div class="story-tag">📅 Date Idea</div>
-        <p class="story-text">Cook a meal from a country you've never visited. Put on that country's music. Pretend you're there. We've "traveled" to 12 countries this year without leaving our kitchen.</p>
-        <div class="story-author">
-          <div class="story-avatar">🍝</div>
-          <span>Arjun & Priya</span>
-        </div>
-        <div class="story-likes" onclick="likeStory(this)">♥ <span>384</span></div>
-      </div>
-      <div class="story-card reveal" style="transition-delay:0.15s">
-        <div class="story-tag">✨ Memory</div>
-        <p class="story-text">We had our first fight on a Tuesday. We made up by Wednesday. The note he left under my pillow said "I choose you, especially when it's hard." I still have it.</p>
-        <div class="story-author">
-          <div class="story-avatar">💌</div>
-          <span>Leila, from Delhi</span>
-        </div>
-        <div class="story-likes" onclick="likeStory(this)">♥ <span>512</span></div>
-      </div>
-      <div class="story-card reveal" style="transition-delay:0.2s">
-        <div class="story-tag">🌙 Quiet Moment</div>
-        <p class="story-text">Sometimes we just exist in the same room doing different things. Her reading, me sketching. No music. No talking. That silence feels more intimate than any conversation.</p>
-        <div class="story-author">
-          <div class="story-avatar">🎨</div>
-          <span>Karan, Bangalore</span>
-        </div>
-        <div class="story-likes" onclick="likeStory(this)">♥ <span>298</span></div>
-      </div>
-      <div class="story-card reveal" style="transition-delay:0.25s">
-        <div class="story-tag">💑 Relationship Lesson</div>
-        <p class="story-text">Love languages are real. I say "I love you" with words. He says it by making sure my car always has petrol. Once I understood that, everything changed.</p>
-        <div class="story-author">
-          <div class="story-avatar">🚗</div>
-          <span>Sana & Rohit</span>
-        </div>
-        <div class="story-likes" onclick="likeStory(this)">♥ <span>631</span></div>
-      </div>
-      <div class="story-card reveal" style="transition-delay:0.3s">
-        <div class="story-tag">🌺 Cute Moment</div>
-        <p class="story-text">She writes my name on her grocery list even when she's buying something just for me. "For Varun" next to every item. I found one of those lists in an old jacket last week. I cried.</p>
-        <div class="story-author">
-          <div class="story-avatar">🛒</div>
-          <span>Varun, Hyderabad</span>
-        </div>
-        <div class="story-likes" onclick="likeStory(this)">♥ <span>419</span></div>
-      </div>
-    </div>
 
-    <div class="submit-story reveal">
-      <h3>Share Your Story</h3>
-      <p>Your love story deserves to be heard. Share it anonymously or with your name — every experience matters here.</p>
-      <div class="form-row">
-        <div class="form-half"><input class="form-input" placeholder="Your name (or 'Anonymous')" /></div>
-        <div class="form-half"><input class="form-input" placeholder="City (optional)" /></div>
+        <!-- Tag Pills -->
+        <div class="comm-tags-row reveal" id="communityTags"></div>
+
+        <!-- Composer -->
+        <div id="postComposer" style="display:none" class="post-composer">
+          <div class="composer-avatar">✨</div>
+          <div class="composer-body">
+            <input class="form-input" id="composerName" placeholder="Your name or 'Anonymous'" style="margin-bottom:0.6rem" />
+            <textarea class="form-textarea" id="composerText" placeholder="Share a memory, confession, date idea, or quiet moment..." rows="3"></textarea>
+            <div class="composer-footer">
+              <select class="form-select" id="composerTag" style="flex:1;min-width:0">
+                <option value="">Choose a tag...</option>
+                <option>💌 Confession</option>
+                <option>📅 Date Idea</option>
+                <option>✨ Memory</option>
+                <option>🌙 Quiet Moment</option>
+                <option>💑 Lesson</option>
+                <option>🌺 Cute Moment</option>
+              </select>
+              <button class="btn-primary" onclick="submitPost()" style="padding:0.6rem 1.4rem;font-size:0.82rem">Post ✦</button>
+              <button class="btn-secondary" onclick="toggleComposer()" style="padding:0.6rem 1rem;font-size:0.82rem">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Posts Feed -->
+        <div id="communityFeed"></div>
       </div>
-      <div class="form-row">
-        <select class="form-select">
-          <option value="">Story type...</option>
-          <option>💌 Confession</option>
-          <option>📅 Date Idea</option>
-          <option>✨ Memory</option>
-          <option>🌙 Quiet Moment</option>
-          <option>💑 Relationship Lesson</option>
-          <option>🌺 Cute Moment</option>
-        </select>
-      </div>
-      <textarea class="form-textarea" placeholder="Tell your story... (no minimum, no maximum — just your truth)"></textarea>
-      <div style="margin-top:1rem">
-        <button class="btn-primary" onclick="submitStory()">Share Your Story ✦</button>
-      </div>
+
+      <!-- Right Sidebar -->
+      <aside class="comm-sidebar reveal">
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">💌 About This Space</div>
+          <p class="sidebar-card-text">A community for anyone who's loved, is in love, or is trying to understand what love even means. Share your stories — big and small.</p>
+          <button class="btn-primary" style="width:100%;margin-top:1rem;font-size:0.82rem" onclick="toggleComposer();document.querySelector('.comm-main').scrollIntoView({behavior:'smooth'})">✦ Share Your Story</button>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">📌 Community Rules</div>
+          <ul class="sidebar-rules">
+            <li>Be kind. Always.</li>
+            <li>No real names without consent</li>
+            <li>Respect all love stories</li>
+            <li>Keep it real, not performative</li>
+          </ul>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">✦ Trending Tags</div>
+          <div class="sidebar-tags" id="sidebarTrending"></div>
+        </div>
+      </aside>
     </div>
   </div>
 </section>
@@ -1303,17 +1853,17 @@
         <p style="font-size:0.8rem;color:var(--muted);margin-top:0.3rem;margin-bottom:1.5rem">4.97 · 1,200+ pre-orders</p>
         <p class="product-desc">A Thousand Days is a memoir of a modern love — tender, messy, and deeply real. Written across late nights and early mornings, it's a book for anyone who has loved, lost, or is in the middle of something beautiful they don't want to forget.</p>
         <div class="price-options">
-          <div class="price-card selected" onclick="selectEdition(this,'499')" id="ed-digital">
+          <div class="price-card selected" onclick="selectEdition(this,'digital')" id="ed-digital">
             <div class="price-type">Digital</div>
             <div class="price-amount">₹499</div>
             <div class="price-note">Instant download · PDF + ePub</div>
           </div>
-          <div class="price-card" onclick="selectEdition(this,'899')" id="ed-print">
+          <div class="price-card" onclick="selectEdition(this,'paperback')" id="ed-print">
             <div class="price-type">Paperback</div>
             <div class="price-amount">₹899</div>
             <div class="price-note">Ships in 3–5 days</div>
           </div>
-          <div class="price-card" onclick="selectEdition(this,'1499')" id="ed-collector">
+          <div class="price-card" onclick="selectEdition(this,'collector')" id="ed-collector">
             <div class="price-type">Collector's</div>
             <div class="price-amount">₹1,499</div>
             <div class="price-note">Signed + bookmark + letter</div>
@@ -1526,11 +2076,7 @@
 <!-- Cart Toast -->
 <div class="cart-toast" id="cartToast"></div>
 
-<!-- Theme Toggle -->
-<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-  <div class="theme-toggle-knob" id="themeKnob">☀️</div>
-  <span class="theme-toggle-label" id="themeLabel">Light</span>
-</button>
+
 
 <!-- Submit Modal -->
 <div class="modal-overlay" id="storyModal">
@@ -1555,22 +2101,19 @@
 <script>
 // ── THEME TOGGLE ──
 function toggleTheme() {
-  const html = document.documentElement;
-  const knob = document.getElementById('themeKnob');
-  const label = document.getElementById('themeLabel');
+  const htmlEl = document.documentElement;
   const navIcon = document.getElementById('navThemeIcon');
-  const isDark = html.getAttribute('data-theme') === 'dark';
+  const navLabel = document.getElementById('navDarkLabel');
+  const isDark = htmlEl.getAttribute('data-theme') === 'dark';
   if (isDark) {
-    html.removeAttribute('data-theme');
-    if (knob) knob.textContent = '☀️';
-    if (label) label.textContent = 'Light';
+    htmlEl.removeAttribute('data-theme');
     if (navIcon) navIcon.textContent = '☀️';
+    if (navLabel) navLabel.textContent = 'Light';
     localStorage.setItem('atd-theme', 'light');
   } else {
-    html.setAttribute('data-theme', 'dark');
-    if (knob) knob.textContent = '🌙';
-    if (label) label.textContent = 'Dark';
+    htmlEl.setAttribute('data-theme', 'dark');
     if (navIcon) navIcon.textContent = '🌙';
+    if (navLabel) navLabel.textContent = 'Dark';
     localStorage.setItem('atd-theme', 'dark');
   }
 }
@@ -1581,12 +2124,10 @@ function toggleTheme() {
   const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   if (saved === 'dark' || (!saved && prefersDark)) {
     document.documentElement.setAttribute('data-theme', 'dark');
-    const knob = document.getElementById('themeKnob');
-    const label = document.getElementById('themeLabel');
     const navIcon = document.getElementById('navThemeIcon');
-    if (knob) knob.textContent = '🌙';
-    if (label) label.textContent = 'Dark';
+    const navLabel = document.getElementById('navDarkLabel');
     if (navIcon) navIcon.textContent = '🌙';
+    if (navLabel) navLabel.textContent = 'Dark';
   }
 })();
 
@@ -1709,7 +2250,7 @@ function selectEdition(el, editionId) {
   el.classList.add('selected');
   selectedEdition = editionId;
   const p = PRODUCTS[editionId];
-  document.getElementById('selectedPrice').textContent = p.price.toLocaleString('en-IN');
+  if (p) document.getElementById('selectedPrice').textContent = p.price.toLocaleString('en-IN');
 }
 
 function addToCart() {
@@ -2183,7 +2724,9 @@ function toggleMobileNav() {
   if (links.style.display === 'flex') {
     links.style.display = 'none';
   } else {
-    links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(253,246,240,0.97);backdrop-filter:blur(20px);padding:1.5rem 2rem 2rem;gap:1.2rem;z-index:99;border-bottom:1px solid rgba(233,165,181,0.2)';
+    const isDarkNow = document.documentElement.getAttribute('data-theme') === 'dark';
+    const navBg = isDarkNow ? 'rgba(26,14,19,0.97)' : 'rgba(253,246,240,0.97)';
+    links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:' + navBg + ';backdrop-filter:blur(20px);padding:1.5rem 2rem 2rem;gap:1.2rem;z-index:99;border-bottom:1px solid rgba(233,165,181,0.2)';
   }
 }
 
@@ -2197,6 +2740,99 @@ window.addEventListener('scroll', () => {
     document.querySelector('.hero-content').style.opacity = 1 - scrolled / (window.innerHeight * 0.8);
   }
 });
+
+// ── COMMUNITY INIT ──
+renderCommunity();
+
+// ── SIDEBAR TRENDING ──
+(function() {
+  const trending = ['💌 Confession','✨ Memory','🌺 Cute Moment','📅 Date Idea','🌙 Quiet Moment'];
+  const el = document.getElementById('sidebarTrending');
+  if (el) {
+    el.innerHTML = trending.map(t => `<button class="sidebar-tag-btn" onclick="setTag('${t}');document.getElementById('community').scrollIntoView({behavior:'smooth'})">${t}</button>`).join('');
+  }
+})();
+
+// ── PROMO CODE ──
+function applyPromo() {
+  const inp = document.getElementById('promoInput');
+  const code = inp ? inp.value.trim().toUpperCase() : '';
+  if (code === 'LOVE100') {
+    showToast('🎉 ₹100 off applied! Code: LOVE100');
+    if (inp) inp.style.borderColor = '#22c55e';
+  } else if (code === 'BOOK20') {
+    showToast('🎉 20% off applied! Code: BOOK20');
+    if (inp) inp.style.borderColor = '#22c55e';
+  } else if (code === '') {
+    showToast('Please enter a promo code');
+  } else {
+    showToast('❌ Invalid promo code');
+    if (inp) inp.style.borderColor = '#ef4444';
+  }
+}
+
+// Close checkout on overlay click (already handled by generic overlay handler)
+// Close cart when ESC is pressed
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeCart();
+    closeModal('checkoutModal');
+  }
+});
+
+// selectEdition defined above
+
 </script>
+
+<!-- Cart Overlay -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<!-- Cart Panel (Flipkart/Amazon style sliding panel) -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-panel-header">
+    <div>
+      <div class="cart-panel-title">🛍 My Cart</div>
+      <div class="cart-panel-sub" id="cartPanelCount">0 items</div>
+    </div>
+    <button class="cart-close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-panel-body">
+    <div class="cart-items-list" id="cartItemsList">
+      <div class="cart-empty"><div style="font-size:3rem">📚</div><p>Your cart is empty</p><span>Find the perfect edition above</span></div>
+    </div>
+  </div>
+  <div class="cart-panel-footer" id="cartFooter" style="display:none">
+    <div class="cart-promo-row">
+      <input class="cart-promo-input" placeholder="Coupon / Promo code" id="promoInput" />
+      <button class="cart-promo-btn" onclick="applyPromo()">Apply</button>
+    </div>
+    <div class="cart-total-row">
+      <div>
+        <div class="cart-total-label">Total Amount</div>
+        <div class="cart-savings" id="cartSavings"></div>
+      </div>
+      <div class="cart-total-amount" id="cartTotalAmt">₹0</div>
+    </div>
+    <button class="cart-checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout →</button>
+    <div class="cart-secure-badge">🔒 100% Secure · UPI · Cards · COD</div>
+  </div>
+</div>
+
+<!-- Checkout Modal (Flipkart/Amazon style multi-step) -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="checkout-modal">
+    <div class="checkout-header">
+      <div class="checkout-title">Secure Checkout</div>
+      <button class="modal-close" onclick="closeModal('checkoutModal')">✕</button>
+    </div>
+    <div class="co-steps" id="checkoutSteps"></div>
+    <div class="checkout-body" id="checkoutBody"></div>
+    <div class="checkout-footer">
+      <button class="co-back-btn" id="checkoutBack" onclick="checkoutBack()" style="display:none">← Back</button>
+      <button class="co-next-btn" id="checkoutNext" onclick="checkoutNext()">Continue →</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
